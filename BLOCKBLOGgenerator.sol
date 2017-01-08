@@ -12,7 +12,7 @@ owner=msg.sender;
 
 //generate new BLOCKBLOG
 function generateBLOCKBLOG() returns(bool){
-address b=new BLOCKBLOGgenerator;
+address b=new BLOCKBLOG();
 lastBlogGenerated[msg.sender]=b;
 return true;
 }
@@ -26,11 +26,11 @@ selfdestruct(owner);
 
 }
 
-contract BLOCKBLOGgenerator{
+contract BLOCKBLOG{
 address public owner; //standard needed for Alpha Layer and generic augmentation
 
 //creation
-function BLOCKBLOGgenerator() {
+function BLOCKBLOG() {
 owner=msg.sender;
 }
 
@@ -57,13 +57,14 @@ log[] logs;
     string content;
     string media;
     address ethlink;
+    string link;
     uint blocknumber;
    }
 
 //read the logs by index
-function readLog(uint i)constant returns(uint,address,string,uint,string){
+function readLog(uint i)constant returns(uint,string,string,string,string,address,string,uint){
 log l=logs[i];
-return(l.length,l.title,l.headline,l.content,l.media,l.ethlink);
+return(logs.length,l.title,l.headline,l.content,l.media,l.ethlink,l.link,l.blocknumber);
 }
 
 //change owner
