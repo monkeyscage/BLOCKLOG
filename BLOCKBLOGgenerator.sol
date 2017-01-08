@@ -1,6 +1,31 @@
 //BLOCKLOG code
 pragma solidity ^0.4.6;
 
+
+contract BLOCKBLOGgenerator{
+address public owner; //standard needed for Alpha Layer and generic augmentation
+mapping(address => address)public lastBlogGenerated;
+//creation
+function BLOCKBLOGgenerator() {
+owner=msg.sender;
+}
+
+//generate new BLOCKBLOG
+function generateBLOCKBLOG() returns(bool){
+address b=new BLOCKBLOGgenerator;
+lastBlogGenerated[msg.sender]=b;
+return true;
+}
+
+//destroy blog
+function kill(){
+if (msg.sender != owner)throw;
+selfdestruct(owner);
+}
+
+
+}
+
 contract BLOCKBLOGgenerator{
 address public owner; //standard needed for Alpha Layer and generic augmentation
 
