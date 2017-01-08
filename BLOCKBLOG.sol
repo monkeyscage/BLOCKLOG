@@ -1,3 +1,4 @@
+pragma solidity ^0.4.6;
 
 contract BLOCKBLOG{
 address public owner; //standard needed for Alpha Layer and generic augmentation
