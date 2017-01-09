@@ -12,7 +12,7 @@ owner=msg.sender;
 
 //generate new BLOCKBLOG
 function generateBLOCKBLOG() returns(bool){
-address b=new BLOCKBLOG();
+address b=new BLOCKBLOG(msg.sender);
 lastBlogGenerated[msg.sender]=b;
 return true;
 }
