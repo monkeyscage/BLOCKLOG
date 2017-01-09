@@ -4,8 +4,8 @@ contract BLOCKBLOG{
 address public owner; //standard needed for Alpha Layer and generic augmentation
 
 //creation
-function BLOCKBLOG() {
-owner=msg.sender;
+function BLOCKBLOG(address o) {
+owner=o;
 logs.push(log("BLOCKLOG:","blog","1.0","created",o,"",block.number));
 }
 
