@@ -54,11 +54,9 @@ log[] logs;
 
     struct log{
     string title;
-    string headline;
     string content;
     string media;
     address ethlink;
-    string link;
     uint blocknumber;
    }
 
