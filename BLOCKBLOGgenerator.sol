@@ -30,21 +30,22 @@ contract BLOCKBLOG{
 address public owner; //standard needed for Alpha Layer and generic augmentation
 
 //creation
-function BLOCKBLOG() {
-owner=msg.sender;
+function BLOCKBLOG(address o) {
+owner=o;
+logs.push(log("Created Blog","1.0","",o,block.number));
 }
 
 //add a new post at the end of the log
-function addPost(string title,string headline,string content,string media,address ethlink,string link) returns(bool){
+function addPost(string title,string content,string media,address ethlink) returns(bool){
 if(msg.sender!=owner)throw;
-logs.push(log(title,headline,content,media,ethlink,link,block.number));
+logs.push(log(title,content,media,ethlink,block.number));
 return true;
 }
 
 //edit a specific post at a given index
-function editPost(uint index,string title,string headline,string content,string media,address ethlink,string link) returns(bool){
+function editPost(uint index,string title,string content,string media,address ethlink) returns(bool){
 if(msg.sender!=owner)throw;
-logs[index]=log(title,headline,content,media,ethlink,link,block.number);
+logs[index]=log(title,content,media,ethlink,block.number);
 return true;
 }
 
@@ -62,15 +63,15 @@ log[] logs;
    }
 
 //read the logs by index
-function readLog(uint i)constant returns(uint,string,string,string,string,address,string,uint){
+function readLog(uint i)constant returns(uint,string,string,string,address,uint){
 log l=logs[i];
-return(logs.length,l.title,l.headline,l.content,l.media,l.ethlink,l.link,l.blocknumber);
+return(logs.length,l.title,l.content,l.media,l.ethlink,l.blocknumber);
 }
 
 //change owner
 function manager(address o)returns(bool){
 if(msg.sender!=owner)throw;
-logs.push(log("Owner changed:","","","",o,"",block.number));
+logs.push(log("Owner changed:","","",o,block.number));
 owner=o;
 return true;
 }
