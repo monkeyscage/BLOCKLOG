@@ -6,7 +6,7 @@ address public owner; //standard needed for Alpha Layer and generic augmentation
 //creation
 function BLOCKBLOG(address o) {
 owner=o;
-logs.push(log("BLOCKLOG:","blog","1.0","created",o,"",block.number));
+logs.push(log("BLOCKLOG:","blog","1.0","created",o,block.number));
 }
 
 //add a new post at the end of the log
@@ -32,12 +32,11 @@ log[] logs;
     string content;
     string media;
     address ethlink;
-    string link;
     uint blocknumber;
    }
 
 //read the logs by index
-function readLog(uint i)constant returns(uint,string,string,string,string,address,string,uint){
+function readLog(uint i)constant returns(uint,string,string,string,string,uint){
 log l=logs[i];
 return(logs.length,l.title,l.headline,l.content,l.media,l.ethlink,l.link,l.blocknumber);
 }
@@ -45,7 +44,7 @@ return(logs.length,l.title,l.headline,l.content,l.media,l.ethlink,l.link,l.block
 //change owner
 function manager(address o)returns(bool){
 if(msg.sender!=owner)throw;
-logs.push(log("Owner changed:","","","",o,"",block.number));
+logs.push(log("Owner changed:","","","",o,block.number));
 owner=o;
 return true;
 }
