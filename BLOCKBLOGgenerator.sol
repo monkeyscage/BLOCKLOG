@@ -6,29 +6,36 @@ address public owner;
 address public controller;
 address[] public dapps;
 address[] public blogs;
+mapping(address => address[]) myblogs;
+
 function logsIndex(){owner=msg.sender;}
 function setOwner(address NewOwner){if(msg.sender!=owner)throw;owner=NewOwner;}
 function setController(address NewController){if(msg.sender!=owner)throw;controller=NewController;}
-function addDapp(address DappAddress){if(msg.sender!=controller)throw;dapps.push(DappAddress);}
-function addBlog(address BlogAddress){if(msg.sender!=controller)throw;blogs.push(BlogAddress);}
+function addDapp(address DappAddress,address creator){if(msg.sender!=owner)throw;mydapps[creator].push(DappAddress);dapps.push(DappAddress);}
+function addBlog(address BlogAddress,address creator){if(msg.sender!=controller)throw;myblogs[creator].push(BlogAddress);blogs.push(BlogAddress);}
 function removeDapp(uint index){if(msg.sender!=owner)throw;dapps[index]=0x0;}
 function removeBlog(uint index){if(msg.sender!=owner)throw;blogs[index]=0x0;}
 function getDapp(uint index)contrant returns(uint,address){uint t=dapps.length; return(t,dapps[index]);}
 function getBlog(uint index)contrant returns(uint,address){uint t=blogs.length; return(t,blogs[index]);}
+function getMyBlog(address creator,uint index)contrant returns(uint,address){uint t=myblogs[creator].length; return(t,myblogs[creator][i]);}
+function getMyDapp(address creator,uint index)contrant returns(uint,address){uint t=mydapps[creator].length; return(t,mydapps[creator][i]);}
 }
 
 
 contract BLOCKBLOGgenerator{
 address public owner; //standard needed for Alpha Layer and generic augmentation
+logsIndex logsindex;
 mapping(address => address)public lastBlogGenerated;
 //creation
-function BLOCKBLOGgenerator() {
+function BLOCKBLOGgenerator(address mainindex) {
+logsindex=logsIndex(mainindex);
 owner=msg.sender;
 }
 
 //generate new BLOCKBLOG
 function generateBLOCKBLOG() returns(bool){
 address b=new BLOCKBLOG(msg.sender);
+if(!logsindex.addBlog(b))throw;
 lastBlogGenerated[msg.sender]=b;
 return true;
 }
