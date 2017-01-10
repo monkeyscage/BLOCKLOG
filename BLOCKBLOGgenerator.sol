@@ -1,6 +1,22 @@
 
 pragma solidity ^0.4.6;
 
+contract logsIndex{
+address public owner;
+address public controller;
+address[] public dapps;
+address[] public blogs;
+function logsIndex(){owner=msg.sender;}
+function setOwner(address NewOwner){if(msg.sender!=owner)throw;owner=NewOwner;}
+function setController(address NewController){if(msg.sender!=owner)throw;controller=NewController;}
+function addDapp(address DappAddress){if(msg.sender!=controller)throw;dapps.push(DappAddress);}
+function addBlog(address BlogAddress){if(msg.sender!=controller)throw;blogs.push(BlogAddress);}
+function removeDapp(uint index){if(msg.sender!=owner)throw;dapps[index]=0x0;}
+function removeBlog(uint index){if(msg.sender!=owner)throw;blogs[index]=0x0;}
+function getDapp(uint index)contrant returns(uint,address){uint t=dapps.length; return(t,dapps[index]);}
+function getBlog(uint index)contrant returns(uint,address){uint t=blogs.length; return(t,blogs[index]);}
+}
+
 
 contract BLOCKBLOGgenerator{
 address public owner; //standard needed for Alpha Layer and generic augmentation
