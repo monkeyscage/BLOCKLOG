@@ -72,7 +72,7 @@ return(u,l.title,l.content,l.media,l.link,l.ethlink,b);
 //change owner
 function manager(address o)returns(bool){
 if(msg.sender!=owner)throw;
-logs.push(log("Owner changed:","","",o,block.number));
+logs.push(log("Owner changed:","","","",o,block.number));
 owner=o;
 return true;
 }
