@@ -34,8 +34,11 @@ owner=msg.sender;
 }
  
 //generate new BLOCKBLOG
-function generateBLOCKBLOG() returns(bool){
-address b=new BLOCKBLOG(msg.sender);
+function generateBLOCKBLOG(uint version) returns(bool){
+address b;
+if(version==1)b=new BLOCKBLOG(msg.sender);
+if(version==2)b=new universalBLOCKBLOG(msg.sender);
+
 if(!logsindex.addBlog(b,msg.sender))throw;
 lastBlogGenerated[msg.sender]=b;
 return true;
