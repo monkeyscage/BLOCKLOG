@@ -36,13 +36,37 @@ owner=msg.sender;
 //generate new BLOCKBLOG
 function generateBLOCKBLOG(uint version) returns(bool){
 address b;
-if(version==1)b=new BLOCKBLOG(msg.sender);
-if(version==2)b=new universalBLOCKBLOG(msg.sender);
+
+if(version==1){
+   b=new BLOCKBLOG(msg.sender);
+}else{
+   b=new universalBLOCKBLOG(msg.sender);
+}
 
 if(!logsindex.addBlog(b,msg.sender))throw;
+
+logs.push(log(b,block.number));
+
 lastBlogGenerated[msg.sender]=b;
+
 return true;
 }
+
+//read the logs by index
+function readLog(uint i)constant returns(uint,address,uint){
+log l=logs[i];
+return(logs.length,l.ethlink,l.blocknumber);
+}
+
+//the logs container
+log[] logs;
+//used to know in advance the logs structure
+string public logInterface="a-Log|u-Block";
+
+    struct log{
+    address ethlink;
+    uint blocknumber;
+   }
  
 //destroy blog
 function kill(){
@@ -105,9 +129,7 @@ return true;
 //read the logs by index
 function readLog(uint i)constant returns(uint,string,string,string,string,address,uint){
 log l=logs[i];
-uint u=logs.length;
-uint b=l.blocknumber;
-return(u,l.title,l.content,l.media,l.link,l.ethlink,b);
+return(logs.length,l.title,l.content,l.media,l.link,l.ethlink,l.blocknumber);
 }
 
 
@@ -184,9 +206,7 @@ return true;
 //read the logs by index
 function readLog(uint i)constant returns(uint,address,uint){
 log l=logs[i];
-uint u=logs.length;
-uint b=l.blocknumber;
-return(u,l.link,l.ethlink,b);
+return(logs.length,l.ethlink,l.blocknumber);
 }
 
 //the logs container
