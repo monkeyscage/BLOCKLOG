@@ -110,7 +110,8 @@ return(u,l.title,l.content,l.media,l.link,l.ethlink,b);
 
 //the logs container
 log[] logs;
- 
+string public logInterface="s-Title|s-Content|s-Media-|s-Link|a-EthLink|u-Block";
+
     struct log{
     string title;
     string content;
@@ -182,7 +183,8 @@ return(u,l.link,l.ethlink,b);
 
 //the logs container
 log[] logs;
- 
+string public logInterface="a-Log|u-Block";
+
     struct log{
     address ethlink;
     uint blocknumber;
