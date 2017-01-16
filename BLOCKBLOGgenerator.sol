@@ -149,14 +149,14 @@ return true;
 }
  
 //add a new post at the end of the log
-function addPost(string title,string content,string media,string link,address ethlink) returns(bool){
+function shareLog(address ethlink) returns(bool){
 if(msg.sender!=owner)throw;
 logs.push(log(ethlink,block.number));
 return true;
 }
  
 //add a new post at the end of the log
-function addLogPost(string title,string content,string media,string link,address ethlink) returns(bool){
+function createLog() returns(bool){
 if(msg.sender!=owner)throw;
 address a=new microlog(msg.sender);
 logs.push(log(a,block.number));
