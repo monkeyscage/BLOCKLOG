@@ -132,7 +132,9 @@ selfdestruct(owner);
 
 contract universalBLOCKBLOG{
 address public owner; //standard needed for Alpha Layer and generic augmentation
-string standard="BLOCKLOG.1.0";
+address public controller; //allowed to post, share and edit logs
+string standard="BLOCKLOG.1.0";  //the blog standard
+
  
 //creation
 function universalBLOCKBLOG(address o) {
@@ -143,21 +145,27 @@ logs.push(log(o,block.number));
 //change owner
 function manager(address o)returns(bool){
 if(msg.sender!=owner)throw;
-logs.push(log(o,block.number));
 owner=o;
+return true;
+}
+
+//change owner
+function setController(address o)returns(bool){
+if(msg.sender!=owner)throw;
+controller=o;
 return true;
 }
  
 //add a new post at the end of the log
 function shareLog(address ethlink) returns(bool){
-if(msg.sender!=owner)throw;
+if((msg.sender!=owner)&&(msg.sender!=controller))throw;
 logs.push(log(ethlink,block.number));
 return true;
 }
  
 //add a new post at the end of the log
 function createLog() returns(bool){
-if(msg.sender!=owner)throw;
+if((msg.sender!=owner)&&(msg.sender!=controller))throw;
 address a=new microlog(msg.sender);
 logs.push(log(a,block.number));
 return true;
@@ -165,12 +173,10 @@ return true;
  
 //edit a specific post at a given index
 function editPost(uint index,address ethlink) returns(bool){
-if(msg.sender!=owner)throw;
+if((msg.sender!=owner)&&(msg.sender!=controller))throw;
 logs[index]=log(ethlink,block.number);
 return true;
 }
- 
-
  
 //read the logs by index
 function readLog(uint i)constant returns(uint,address,uint){
@@ -180,9 +186,9 @@ uint b=l.blocknumber;
 return(u,l.link,l.ethlink,b);
 }
 
-
 //the logs container
 log[] logs;
+//used to know in advance the logs structure
 string public logInterface="a-Log|u-Block";
 
     struct log{
