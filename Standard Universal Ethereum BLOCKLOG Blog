@@ -67,15 +67,16 @@ string public logInterface="a-Log|u-Block";
  
  
 //destroy blog
-function kill(){
-if (msg.sender != owner)throw;
-selfdestruct(owner);
-}
+//function kill(){
+//if (msg.sender != owner)throw;
+//selfdestruct(owner);
+//}
  
 }
 
 
 contract microlog{
-address public owner;
+address public owner; //standard needed for Alpha Layer and generic augmentation
+
 function log(address own){owner=own;}
 }
