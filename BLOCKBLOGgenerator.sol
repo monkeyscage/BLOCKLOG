@@ -195,6 +195,7 @@ address a=new microlog(msg.sender);
 logs.push(log(a,block.number));
 return true;
 }
+
  
 //edit a specific post at a given index
 function editPost(uint index,address ethlink) returns(bool){
