@@ -284,7 +284,7 @@ function deletePost(uint index,address ethlink) returns(bool){
 if((msg.sender!=owner)&&(msg.sender!=controller))throw;
 log l=logs[index];
 logs[l.prev].next=l.next;
-logs[l.next].next=l.prev;
+logs[l.next].prev=l.prev;
 return true;
 }
  
