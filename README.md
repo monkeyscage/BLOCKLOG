@@ -8,7 +8,7 @@ Index
 
 Generator
 
-0x0ca300689688124Fd2edCe1c77Ea081aE0f05946
+0x32F6D293cf51F580317e23e5209d6A76ccCe2318
 
 [ { "constant": true, "inputs": [ { "name": "", "type": "address" } ], "name": "lastBlogGenerated", "outputs": [ { "name": "", "type": "address", "value": "0x0000000000000000000000000000000000000000" } ], "payable": false, "type": "function" }, { "constant": false, "inputs": [ { "name": "version", "type": "uint256" } ], "name": "generateBLOCKBLOG", "outputs": [ { "name": "", "type": "bool" } ], "payable": false, "type": "function" }, { "constant": false, "inputs": [], "name": "kill", "outputs": [], "payable": false, "type": "function" }, { "constant": true, "inputs": [], "name": "logInterface", "outputs": [ { "name": "", "type": "string", "value": "a-Log|u-Block" } ], "payable": false, "type": "function" }, { "constant": true, "inputs": [], "name": "owner", "outputs": [ { "name": "", "type": "address", "value": "0x05065ccbf3084c3feb291f9f116b4185154c203b" } ], "payable": false, "type": "function" }, { "constant": true, "inputs": [ { "name": "i", "type": "uint256" } ], "name": "readLog", "outputs": [ { "name": "", "type": "uint256", "value": "0" }, { "name": "", "type": "address", "value": "0x" }, { "name": "", "type": "uint256", "value": "0" } ], "payable": false, "type": "function" }, { "inputs": [ { "name": "mainindex", "type": "address", "index": 0, "typeShort": "address", "bits": "", "displayName": "mainindex", "template": "elements_input_address", "value": "" } ], "payable": false, "type": "constructor" } ]
 
