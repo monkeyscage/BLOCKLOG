@@ -1,4 +1,5 @@
 
+
 pragma solidity ^0.4.6;
  
 contract logsIndex{
@@ -259,7 +260,8 @@ return true;
 //add a new post at the end of the log
 function shareLog(address ethlink) returns(bool){
 if((msg.sender!=owner)&&(msg.sender!=controller))throw;
-logs.push(log(ethlink,block.number));
+logs.push(log(ethlink,block.number,logcount-1,logcount+1));
+logcount++;
 return true;
 }
  
@@ -275,7 +277,8 @@ return true;
 //edit a specific post at a given index
 function editPost(uint index,address ethlink) returns(bool){
 if((msg.sender!=owner)&&(msg.sender!=controller))throw;
-logs[index]=log(ethlink,block.number);
+logs[index]=log(ethlink,block.number,logcount-1,logcount+1);
+logcount++;
 return true;
 }
 
@@ -317,10 +320,10 @@ selfdestruct(owner);
  
 contract minilog{
 address public owner;
-function log(address own,string title,string content,string media,string link,address ethlink){owner=own;}
+function minilog(address own,string title,string content,string media,string link,address ethlink){owner=own;}
 }
 
 contract microlog{
 address public owner;
-function log(address own){owner=own;}
+function microlog(address own){owner=own;}
 }
