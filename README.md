@@ -41,3 +41,4 @@ coin
 
 [ { "constant": false, "inputs": [ { "name": "me", "type": "address" }, { "name": "ref", "type": "address" } ], "name": "setReferral", "outputs": [], "payable": false, "type": "function" }, { "constant": true, "inputs": [ { "name": "", "type": "address" } ], "name": "referralAddress", "outputs": [ { "name": "", "type": "bool", "value": false } ], "payable": false, "type": "function" }, { "constant": true, "inputs": [ { "name": "", "type": "address" } ], "name": "referralReferrer", "outputs": [ { "name": "", "type": "address", "value": "0x0000000000000000000000000000000000000000" } ], "payable": false, "type": "function" }, { "inputs": [], "payable": false, "type": "constructor" } ]
 
+0x15CE734b641B6c968244aec8B69F4A1A633706a4
