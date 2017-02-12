@@ -25,24 +25,33 @@ function getMyDapp(address creator,uint index)constant returns(uint,address){uin
  
  
 contract BLOCKBLOGgenerator{
+AlphaLayer alpha;
 address public owner; //standard needed for Alpha Layer and generic augmentation
 logsIndex logsindex;
 mapping(address => address)public lastBlogGenerated;
 //creation
-function BLOCKBLOGgenerator(address mainindex) {
+function BLOCKBLOGgenerator(address mainindex,address alph) {
 logsindex=logsIndex(mainindex);
 owner=msg.sender;
+alpha=AlphaLayer(alph);
 }
  
 //generate new BLOCKBLOG
 function generateBLOCKBLOG(uint version) returns(bool){
 address b;
+universalBLOCKBLOG blog;
+
 
 if(version==1){
    b=new BLOCKBLOG(msg.sender);
 }else{
-   b=new universalBLOCKBLOG(msg.sender);
+   b=new universalBLOCKBLOG(this);
+   alpha.addString(b,this,1000,"UniversalBlog");
+   blog=universalBLOCKBLOG(b);
+   blog.manager(msg.sender);
 }
+
+
 
 if(!logsindex.addBlog(b,msg.sender))throw;
 
@@ -154,6 +163,13 @@ if (msg.sender != owner)throw;
 selfdestruct(owner);
 }
  
+}
+
+
+contract AlphaLayer{
+function addString(address d,address addr,uint index,string info) returns(bool){
+   return true;
+}
 }
 
 contract universalBLOCKBLOG{
