@@ -12,7 +12,7 @@ contract referralContract{
     mapping(address => address)public referralReferrer;
     mapping(address => uint)public myReferred;
 
-    function referralContract(){owner=msg.sender; status=0;}
+    function referralContract(){owner=msg.sender; isreferral2Address[msg.sender]=true; status=0; referrals2++;}
 
     function setStatus(uint u){status=u;}
 
@@ -24,7 +24,7 @@ contract referralContract{
           myReferred[ref]++;
           if(status<1){
              isreferral2Address[me]=true;
-             if(ref!=owner)referrals2++;
+             referrals2++;
           }
        }else{throw;}
     }
