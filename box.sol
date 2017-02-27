@@ -1,12 +1,14 @@
 contract universalOpenBox{
 address public owner; //standard needed for Alpha Layer and generic augmentation
 address public controller; //allowed to post, share and edit logs
-string standard="BLOCKLOG.1.0";  //the blog standard
+string standard="OPENBOX.1.0";  //the blog standard
 uint public logcount;
  
 //creation
 function universalOpenBox(address o) {
 owner=o;
+logcount=1;
+logs.push(log(this,block.number,logcount-1,logcount+1));
 }
 
 //change owner
@@ -15,44 +17,24 @@ if(msg.sender!=owner)throw;
 owner=o;
 return true;
 }
-
-//change owner
-function setController(address o)returns(bool){
-if(msg.sender!=owner)throw;
-controller=o;
-return true;
-}
  
 //add a new post at the end of the log
 function shareLog(address ethlink) returns(bool){
+log l=logs[logcount-1];
+l.next=logcount;
 logs.push(log(ethlink,block.number,logcount-1,logcount+1));
 logcount++;
 return true;
 }
  
-//add a new post at the end of the log
-function createLog() returns(bool){
-if((msg.sender!=owner)&&(msg.sender!=controller))throw;
-address a=new microlog(msg.sender);
-logs.push(log(a,block.number,logcount-1,logcount+1));
-logcount++;
-return true;
-}
- 
-//edit a specific post at a given index
-function editPost(uint index,address ethlink) returns(bool){
-if((msg.sender!=owner)&&(msg.sender!=controller))throw;
-logs[index]=log(ethlink,block.number,logcount-1,logcount+1);
-logcount++;
-return true;
-}
 
 //delete a specific post at a given index
 function deletePost(uint index,address ethlink) returns(bool){
 if((msg.sender!=owner)&&(msg.sender!=controller))throw;
 log l=logs[index];
-logs[l.prev].next=l.next;
+if(l.prev>0)logs[l.prev].next=l.next;
 logs[l.next].prev=l.prev;
+logcount--;
 return true;
 }
  
