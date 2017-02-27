@@ -1,14 +1,12 @@
-contract universalBox{
+contract universalOpenBox{
 address public owner; //standard needed for Alpha Layer and generic augmentation
 address public controller; //allowed to post, share and edit logs
 string standard="BLOCKLOG.1.0";  //the blog standard
 uint public logcount;
  
 //creation
-function universalBox(address o) {
+function universalOpenBox(address o) {
 owner=o;
-logcount=1;
-logs.push(log(o,block.number,0,1));
 }
 
 //change owner
@@ -27,7 +25,6 @@ return true;
  
 //add a new post at the end of the log
 function shareLog(address ethlink) returns(bool){
-if((msg.sender!=owner)&&(msg.sender!=controller))throw;
 logs.push(log(ethlink,block.number,logcount-1,logcount+1));
 logcount++;
 return true;
